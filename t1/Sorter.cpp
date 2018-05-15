@@ -29,6 +29,44 @@ void Sorter::clear(bool all) {
     }
 }
 
+void Sorter::runParticions(const char *out, bool isEnd) {
+    ofstream output;
+    if (minHeap.empty()) {
+        clear(false);
+
+        output.open(out);
+
+        string input;
+        for (unsigned int i = 0; i < w; i++) {
+            input = (alternate ? "input" : "output") + to_string(i) + ".txt";
+            Node node = Node(input);
+            minHeap.push_back(node);
+        }
+    } else {
+        output.open(out, ios_base::app);
+
+        for (auto &node : minHeap) {
+            node.getElement();
+        }
+    }
+
+    bool stopRun = false;
+    while(!stopRun) {
+        auto min = min_element(minHeap.begin(), minHeap.end(), Comparator());
+        if ((*min).element == partitionEnd) {
+            stopRun = true;
+        } else {
+            output << (*min).element << '\n';
+            (*min).getElement();
+        }
+    }
+    if (isEnd) {
+        output << partitionEnd << '\n';
+    }
+
+    output.close();
+}
+
 int Sorter::partition(vector<char> &v, int min, int max) {
     // pivo sempre o ultimo elemento do particionamento
     char pivo = v[max];

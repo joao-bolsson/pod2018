@@ -9,6 +9,8 @@
 #define T1_SORTER_H
 
 #include <vector>
+#include <algorithm>
+
 #include "Node.h"
 
 using namespace std;
@@ -17,6 +19,12 @@ using namespace std;
  * Max number of opened files. Must be an odd value.
  */
 const byte MAX_FILES = 5;
+
+struct Comparator {
+    bool operator() (const Node &n1, const Node &n2){
+        return int(n1.element) < int(n2.element);
+    }
+};
 
 class Sorter {
 
