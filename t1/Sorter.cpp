@@ -10,7 +10,7 @@
 Sorter::Sorter(int memory, int numFiles) {
     m = memory;
 
-    if (numFiles < MAX_FILES) {
+    if (numFiles < MAX_FILES && numFiles % 2 != 0) {
         throw runtime_error{"Quantidade de arquivos insuficiente"};
     }
     w = numFiles / 2;
