@@ -65,6 +65,28 @@ void Sorter::runParticions(const char *out, bool isEnd) {
     output.close();
 }
 
+void Sorter::intercalation(string name) {
+    alternate = true;
+    string out;
+    int n = p;
+
+    while(n > 1) {
+        for (unsigned int i = 0; i < n; i++) {
+            out = (alternate ? "output" : "input") + to_string(i % w) + ".txt";
+            runParticions(out.c_str(), true);
+        }
+
+        alternate = !alternate;
+
+        minHeap.clear();
+        n = ceil((float) n / w);
+    }
+
+    runParticions(name.c_str(), false);
+    minHeap.clear();
+    clear(true);
+}
+
 int Sorter::partition(vector<char> &v, int min, int max) {
     // pivo sempre o ultimo elemento do particionamento
     char pivo = v[max];
