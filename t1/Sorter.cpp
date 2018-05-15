@@ -28,3 +28,28 @@ void Sorter::clear(bool all) {
         }
     }
 }
+
+int Sorter::partition(vector<char> &v, int min, int max) {
+    // pivo sempre o ultimo elemento do particionamento
+    char pivo = v[max];
+
+    // posição do menor elemento
+    int index = min - 1;
+
+    for (int i = min; i <= max - 1; i++) {
+        if (v[i] <= pivo) {
+            index++;
+            swap(v[index], v[i]);
+        }
+    }
+    swap(v[++index], v[max]);
+    return index;
+}
+
+void Sorter::quickSort(vector<char> &v, int min, int max) {
+    if (min < max) {
+        int p = partition(v, min, max);
+        quickSort(v, min, p - 1);
+        quickSort(v, p + 1, max);
+    }
+}
