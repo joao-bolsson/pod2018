@@ -18,7 +18,7 @@ using namespace std;
 /**
  * Max number of opened files. Must be an odd value.
  */
-const byte MAX_FILES = 5;
+const char MAX_FILES = 5;
 
 struct Comparator {
     bool operator() (const Node &n1, const Node &n2){

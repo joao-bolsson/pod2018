@@ -87,6 +87,68 @@ void Sorter::intercalation(string name) {
     clear(true);
 }
 
+void Sorter::classificationHelper(vector<char> &part, int &nextFile, bool isEnd) {
+    string out;
+    // nome do arquivo
+    out = "input" + to_string(nextFile) + ".txt";
+
+    unsigned int size = part.size();
+    // ordena com quicksort
+    quickSort(part, 0, size - 1);
+
+    // inicia escrita
+    ofstream output(out, ios_base::app);
+
+    for (unsigned int i = 0; i < size; i++) {
+        output << part[i] << '\n';
+    }
+
+    if (isEnd) {
+        output << partitionEnd << '\n';
+    }
+
+    output.close();
+
+    if (nextFile == 0) {
+        p++;
+    }
+    nextFile = (nextFile + 1) % w;
+}
+
+void Sorter::classification(string name) {
+    ifstream input {name};
+    if (input.is_open()) {
+        vector<char> part;
+        char current;
+        int nextFile = 0, i = 0;
+
+        bool isToContinue = true;
+        p = 0;
+
+        while(input >> current) {
+            if (isalpha(current)) {
+                isToContinue = true;
+                part.push_back(current);
+                i++;
+
+                if (i == m) {
+                    classificationHelper(part, nextFile, true);
+
+                    i = 0;
+                    part.clear();
+                    isToContinue = false;
+                }
+            }
+        }
+
+        if (isToContinue) {
+            classificationHelper(part, nextFile, false);
+        }
+    } else {
+        throw  runtime_error {"Erro ao abrir arquivo"};
+    }
+}
+
 int Sorter::partition(vector<char> &v, int min, int max) {
     // pivo sempre o ultimo elemento do particionamento
     char pivo = v[max];
