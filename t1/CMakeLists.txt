@@ -3,4 +3,4 @@ project(t1)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(t1 main.cpp Node.cpp Node.h)
+add_executable(t1 main.cpp Node.cpp Node.h Sorter.cpp Sorter.h)
