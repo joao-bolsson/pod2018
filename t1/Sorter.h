@@ -13,6 +13,11 @@
 
 using namespace std;
 
+/**
+ * Max number of opened files. Must be an odd value.
+ */
+const byte MAX_FILES = 5;
+
 class Sorter {
 
 private:
@@ -20,7 +25,7 @@ private:
     int w; // F/2 ways to the balanced merge of N(F/2) ways
     int p; // partitions by file
 
-    char partitionEnd; // the end of a partition in the file
+    char partitionEnd = '|'; // the end of a partition in the file
     bool alternate; // alternates between input and output files
     vector<Node> minHeap; // represents a minimum heap
 
