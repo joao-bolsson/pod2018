@@ -50,15 +50,13 @@ void Sorter::runParticions(const char *out, bool isEnd) {
         }
     }
 
-    bool stopRun = false;
-    while(!stopRun) {
+    while(true) {
         auto min = min_element(minHeap.begin(), minHeap.end(), Comparator());
         if ((*min).element == partitionEnd) {
-            stopRun = true;
-        } else {
-            output << (*min).element << '\n';
-            (*min).getElement();
+            break;
         }
+        output << (*min).element << '\n';
+        (*min).getElement();
     }
     if (isEnd) {
         output << partitionEnd << '\n';
