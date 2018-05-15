@@ -2,14 +2,15 @@
 #include "Sorter.h"
 
 using namespace std;
-int main(int argc, char **argv) {
+int main() {
+    int mem = 3, files = 5;
+    string in = "/home/joao/pod/t1/entrada.txt";
+    string out = "/home/joao/pod/t1/saida.txt";
     try {
-        if (argc == 5) {
-            Sorter sorter = Sorter(stoi(argv[1]), stoi(argv[2]));
+        Sorter sorter = Sorter(mem, files);
 
-            sorter.classification(argv[3]);
-            sorter.intercalation(argv[4]);
-        }
+        sorter.classification(in);
+        sorter.intercalation(out);
     } catch (exception& e) {
         cout << "Erro: " << e.what() << endl;
     }
